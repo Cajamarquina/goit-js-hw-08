@@ -33,35 +33,3 @@ const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
   });
-
-
-// Implement delegation to ul.gallery and handle click events
-galleryList.addEventListener('click', (event) => {
-  event.preventDefault();
-  if (event.target.tagName === 'IMG') {
-    const largeImageUrl = event.target.dataset.source;
-    openModal(largeImageUrl);
-  }
-});
-
-function openModal(imageUrl) {
-  const instance = lightbox.open([{ src: imageUrl }], {
-    onShow: (instance) => {
-      document.addEventListener('keydown', closeModalOnEscape);
-    },
-    onClose: (instance) => {
-      document.removeEventListener('keydown', closeModalOnEscape);
-    },
-  });
-
-
-   // Optional: Close the modal window on pressing the Escape key
-   function closeModalOnEscape(event) {
-    if (event.key === 'Escape') {
-      instance.close();
-      document.removeEventListener('keydown', closeModalOnEscape);
-    }
-  }
-
-  document.addEventListener('keydown', closeModalOnEscape);
-}
